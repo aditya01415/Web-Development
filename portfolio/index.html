@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            background-color: rgb(0, 0, 33);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px;
+            background-color: rgb(18, 18, 62);
+
+        }
+
+        nav ul {
+            justify-content: space-around;
+            display: flex;
+        }
+
+        nav ul li {
+            list-style: none;
+            margin: 0 23px;
+
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        nav ul li a:hover {
+            color: rgb(153, 153, 226);
+            font-size: 1.01rem;
+        }
+
+        .left {
+            font-size: 1.5rem;
+        }
+
+        .firstsection {
+            display: flex;
+            justify-content: space-around;
+            margin: 130px 0;
+            align-items: center;
+        }
+
+        .firstsection>div {
+            width: 30%;
+        }
+
+        .leftsection {
+            font-size: 2.8rem;
+            width: 34px;
+            margin: 30px;
+        }
+
+
+        .rightsection img {
+            width: 80%;
+
+        }
+
+        .purple {
+            color: blueviolet;
+        }
+
+        #element {
+            color: blueviolet;
+        }
+
+        .secondsection {
+            max-width: 80vw;
+            margin: auto;
+            height: 80vh;
+        }
+
+        main hr {
+            border: 0;
+            background: #9c97f1;
+            height: 1.2px;
+            margin: 60px 84px;
+        }
+
+        .secondsection h1 {
+            font-size: 1.9rem;
+        }
+
+        .text-grey {
+            color: grey;
+        }
+
+        .secondsection .box {
+           background-color: white;
+           width: 80vw;
+           height: 2px;
+           margin: 56px 0;
+           display: flex;
+        }
+
+        .secondsection .vertical {
+            height: 93px;
+            width: 1px;
+            background-color: white;
+            margin: 0 100px;
+        }
+
+
+        .main_box {
+height:100vh;
+background-size: cover;
+}
+
+.btn_one {
+color: white;
+position: absolute;
+left: 16px;
+font-size: 30px;
+font-weight:700px;
+transition: 0.3s;
+}
+.sidebar_menu {
+    position: fixed;
+    left: -300px;
+   height: 100vh;
+   width: 300px;
+   background-color:rgba(255, 255,255, 0.1);
+    box-shadow: 0 0 6px rgba(255, 255,255, 0.5);
+    transition: all 0.3s linear;
+
+    
+}
+.sidebar_menu .logo {
+    position: absolute;
+    
+    width: 100%;
+    line-height: 60px;
+     box-shadow: 0 0 4px rgba(255, 255,255, 0.5); 
+     height: 60px;
+}
+.sidebar_menu .logo a {
+    position: absolute;
+    left: 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight:500 ;
+}
+.sidebar_menu .btn_two {
+    position: absolute;
+    font-size: 25px;
+    line-height:60px;
+    color: grey;
+    left: 275px;
+    opacity:0;
+    transition: 0.3s;
+}
+.sidebar_menu .menu {
+    position: absolute;
+    width: 100%;
+    top: 80px;
+}
+.sidebar_menu .menu li {
+    margin-top:6px;
+    padding: 14px 20px ;
+}
+.sidebar_menu .menu i, a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+.sidebar_menu .menu i {
+    padding-right: 8px;
+}
+.sidebar_menu .social_media {
+
+    position: absolute;
+    left: 25%;
+    bottom: 50px;
+}
+.sidebar_menu .social_media i {
+    color: white;
+    opacity: 0.5;
+    padding: 0 5px;
+}
+#check {
+    display: none;
+} 
+.sidebar_menu .menu li:hover {
+     box-shadow: 0 0 4px rgba(255, 255,255, 0.5);
+}
+.sidebar_menu .social_media:hover {
+    opacity: 1;
+    
+}
+.btn_one  i:hover {
+    font-size: 40px;
+}
+.btn_two i:hover {
+    font-size: 30px;
+}
+.sidebar_menu .social_media i:hover {
+    opacity:1;
+    transform: scale(1.1);
+    
+}
+#check:checked ~ .sidebar_menu {
+    left:0;
+}
+#check:checked ~ .btn_one i {
+    opacity:0;
+}
+#check:checked ~ .sidebar_menu .btn_two  {
+    opacity:1;
+}
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+    
+    <header>
+        <div class="main_box">
+      <input type="checkbox" id="check" />
+      <div class="btn_one">
+        <label for="check" >
+          <i class="fa-solid fa-bars"></i>
+        </label>
+      </div>
+
+      <div class="sidebar_menu">
+        <div class="logo">
+          <a href="#">Aditya Yadav</a>
+        </div>
+
+        <div class="btn_two">
+          <label for="check" style="color: grey">
+            <i class="fa-solid fa-xmark"></i>
+          </label>
+        </div>
+
+        <div class="menu">
+          <ul>
+            <li>
+              <i class="fa-solid fa-image"></i>
+              <a href="#">Gallery</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              <a href="#">Shortcuts</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-photo-film"></i>
+              <a href="#">Exhibits</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-calendar-days"></i>
+              <a href="#">Events</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-store"></i>
+              <a href="#">Store</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <a href="#">Contact</a>
+            </li>
+            <li>
+              <i class="fa-regular fa-comments"></i>
+              <a href="#">Feedback</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="social_media">
+          <ul>
+            <a href="#"><i class="fa-brands fa-facebook"></i></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </ul>
+        </div>
+      </div>
+    </div>
+        <nav>
+            
+            <div class="left">Aditya's Portfolio</div>
+            <div class="right">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="firstsection">
+            <div class="leftsection">
+                Hi, My name is <span class="purple">Aditya Yadav</span>.
+                <div>and I am a passionate</div>
+                <span id="element"></span>
+            </div>
+            <div class="rightsection">
+                <img src="bg.png" alt="">
+            </div>
+
+        </section>
+        <hr>
+        <section class="secondsection">
+            <span class="text-grey">What I have done so far</span>
+            <h1>Work Experience</h1>
+            <div class="box">
+                <div class="vertical"></div>
+                <div class="vertical"></div>
+                <div class="vertical"></div>
+                <div class="vertical"></div>
+            </div>
+        </section>
+    </main>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('#element', {
+            strings: ['Web Developer', 'Video Editor', 'WebDesigner', 'Freelancer'],
+            loop: true,
+            typeSpeed: 50,
+        });
+    </script>
+</body>
+
+</html>
