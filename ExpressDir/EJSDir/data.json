@@ -1,0 +1,37 @@
+
+{
+  "cats": {
+    "name": "cats",
+    "followers": 1000,
+    "following": 500,
+    "posts": [
+      {
+        "image": "https://www.rd.com/wp-content/uploads/2019/11/cat-10-e1573844975155-scaled.jpg",
+        "likes": 100,
+        "comments": 20
+      },
+      {
+        "image": "https://www.cats.org.uk/media/13139/220325case013.jpg",
+        "likes": 150,
+        "comments": 30
+      }
+    ]
+  },
+  "dogs": {
+    "name": "dogs",
+    "followers": 2000,
+    "following": 800,
+    "posts": [
+      {
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN2z0ERwXQUqH29urPuzWueLXKhJAY6SMyAA&s",
+        "likes": 200,
+        "comments": 40
+      },
+      {
+        "image": "https://headsupfortails.com/cdn/shop/articles/Pomeranian_Dog_Guide_38876a16-d481-41d0-a5d8-4bf26afd2c8f.jpg?v=1754635331",
+        "likes": 250,
+        "comments": 50
+      }
+    ]
+  }
+}

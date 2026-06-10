@@ -6,8 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Instagram Profile: @<%= username %></h1>
+    <h1>Instagram Profile: @<%=data.name %></h1>
     <button>Follow</button>
     <button>Message</button>
+<hr/>
+<p>
+    Followers : <%=data.followers %> &nbsp; &nbsp; &nbsp; &nbsp; Following : <%=data.following %>
+</p>
+<% for(let post of data.posts){ %>
+    <img src="<%=post.image%>" alt="Post Image" width="200"/>
+
+     <p>
+        Likes : <%=post.likes %> &nbsp; &nbsp; Comments : <%=post.comments %>
+    </p>
+    
+    <% } %>
+
+   
 </body>
 </html>
