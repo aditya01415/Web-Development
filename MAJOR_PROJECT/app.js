@@ -5,6 +5,8 @@ const path = require('path');
 const Listing = require('./Models/listing.js');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const wrapAsync = require('./utils/wrapAsync.js');
+const ExpressError = require('./utils/ExpressError.js');
 
 main().then(()=>console.log("connected to database")).catch(err=>console.log(err));
 
@@ -68,49 +70,46 @@ app.get("/listings/:id", async (req, res) => {
 });
 
 //Create Route
-app.post("/listings",express.urlencoded({extended:true}),async (req,res)=>{
-    let {title,price,description,location,image,country} = req.body;
-    let listing = new Listing({
-        title,
-        price,
-        description,
-        location,
-        image,
-        country
-    });
-    await listing.save();
+app.post("/listings",wrapAsync(async (req,res,next)=>{
+    if(!req.body.listing){
+        throw new ExpressError("Listing not created",400);
+    }
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
     res.redirect("/listings");
-});
+
+})
+);
 
 //Edit Route
-app.get("/listings/:id/edit",async (req,res)=>{
+app.get("/listings/:id/edit",wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let listing = await Listing.findById(id);
     res.render("listing/edit",{listing});
-}); 
+})); 
 
 //Update Route
-app.put("/listings/:id",express.urlencoded({extended:true}),async (req,res)=>{
+app.put("/listings/:id",express.urlencoded({extended:true}),wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let {title,price,description,location,image,country} = req.body;
     await Listing.findByIdAndUpdate(id,{title,price,description,location,image,country});
     res.redirect(`/listings/${id}`);
-});
+}));
 
 // Accept PATCH as well (some templates submit with ?_method=PATCH)
-app.patch("/listings/:id",express.urlencoded({extended:true}),async (req,res)=>{
+app.patch("/listings/:id",express.urlencoded({extended:true}),wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let {title,price,description,location,image,country} = req.body;
     await Listing.findByIdAndUpdate(id,{title,price,description,location,image,country});
     res.redirect(`/listings/${id}`);
-});
+}));
 
 //Delete Route
-app.delete("/listings/:id",async (req,res)=>{
+app.delete("/listings/:id",wrapAsync(   async (req,res)=>{
     let {id} = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
-});
+}));
 
 app.get("/testListings",(req,res)=>{
     let sampleListings = new Listing({
@@ -126,6 +125,16 @@ app.get("/testListings",(req,res)=>{
     });
     res.send("test listing created");
 }); 
+
+app.all(/.*/,(req,res,next)=>{
+    next(new ExpressError("Page Not Found",404));
+});
+
+app.use((err,req,res,next)=>{
+    let {statusCode=500,message="Something went wrong"} = err;
+    res.render("error.ejs");
+    // res.send("Something went wrong"); 
+});
 
 app.listen(8080,()=>{
     console.log("server is running on port 8080");

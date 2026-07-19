@@ -20,4 +20,4 @@ const initDB = async () => {
     console.log("deleted all listings");
     await Listing.insertMany(data.data.sampleListings);
     console.log("inserted sample data");
-}
+} 
