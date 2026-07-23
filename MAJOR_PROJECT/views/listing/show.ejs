@@ -10,7 +10,7 @@
             <p class="card-text">
                <b> <%= listing.title %></b> <br>
                 <%= listing.description %> <br>
-                Price: $<%= listing.price %> <br>
+                Price: $<%= listing.price.toLocaleString("en-In") %> <br>
                 Location: <%= listing.location %> <br>
                 Country: <%= listing.country %> <br>
             </p>

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const data = require('./data.js');
+const initdata = require('./data.js');
 const Listing = require('../Models/listing.js');
 
 const MONGO_URI = 'mongodb://127.0.0.1:27017/wanderlust';
@@ -18,6 +18,6 @@ async function main() {
 const initDB = async () => {
     await Listing.deleteMany({});
     console.log("deleted all listings");
-    await Listing.insertMany(data.data.sampleListings);
+    await Listing.insertMany(initdata.data);
     console.log("inserted sample data");
 } 
