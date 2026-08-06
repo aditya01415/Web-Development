@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
-const Listing = require('./Models/listing.js');
+const Listing = require("./models/listing.js");
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const ExpressError = require('./utils/ExpressError.js');
+const { listingSchema } = require('./schema.js');
 
 main().then(()=>console.log("connected to database")).catch(err=>console.log(err));
 
@@ -25,6 +26,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/",(req,res)=>{
     res.send("root is working");
 });
+
+const validateListing = (req,res,next)=>{
+    const {error} = listingSchema.validate(req.body);
+    if(error){
+        const msg = error.details.map(el=>el.message).join(",");
+        throw new ExpressError(msg,400);
+    }else{
+        next();
+    }
+};
 
 app.get("/listings",async (req,res)=>{
     let listings = await Listing.find();
@@ -71,10 +82,22 @@ app.get("/listings/:id", async (req, res) => {
 
 //Create Route
 app.post("/listings",wrapAsync(async (req,res,next)=>{
-    if(!req.body.listing){
-        throw new ExpressError("Listing not created",400);
-    }
+    // if(!req.body.listing){
+    //     throw new ExpressError("Listing not created",400);
+    // }
     const newListing = new Listing(req.body.listing);
+
+
+    // if(!newListing.title) {
+    //     throw new ExpressError("Title is required", 400); 
+    // }
+    // if(!newListing.description) {
+    //     throw new ExpressError("Description is required", 400); 
+    // }
+    // if(!newListing.location) {
+    //     throw new ExpressError("Location is required", 400); 
+    // }
+
     await newListing.save();
     res.redirect("/listings");
 
@@ -113,12 +136,12 @@ app.delete("/listings/:id",wrapAsync(   async (req,res)=>{
 
 app.get("/testListings",(req,res)=>{
     let sampleListings = new Listing({
-        title: "Beautiful Beach House",
-        price: 250,
-        description: "A stunning beach house with breathtaking ocean views. Perfect for a relaxing getaway.",
-        location: "Malibu, California",
+        title: "My New Villa",
+        price: 1250,
+        description: "By the Beach",
+        location: "Calangute, Goa",
         image: "",
-        country: "USA"
+        country: "India"
     });
     sampleListings.save().then(()=>{
         console.log("listing saved");
@@ -132,7 +155,7 @@ app.all(/.*/,(req,res,next)=>{
 
 app.use((err,req,res,next)=>{
     let {statusCode=500,message="Something went wrong"} = err;
-    res.render("error.ejs");
+    res.status(statusCode).render("error", { err });
     // res.send("Something went wrong"); 
 });
 
