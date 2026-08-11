@@ -9,6 +9,7 @@ async function Main() {
 const userSchema = new Schema({
     username: String,
     addresses: [{
+        _id: false,
         location: String,
         city: String,
     }],
@@ -25,10 +26,11 @@ const addusers = async () => {
             city: "New York",
         }]
     });
-    user1.push({
+    user1.addresses.push({
         location: "456 Elm St",
         city: "Los Angeles",
     });
     await user1.save();
     console.log("User added:", user1);
 };
+addusers();
