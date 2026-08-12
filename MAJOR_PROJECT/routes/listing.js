@@ -17,8 +17,8 @@ const validateListing = (req,res,next)=>{
     }
 };
 
-//Index Route
-router.get("/",wrapAsync(listingController.index));
+// //Index Route
+// router.get("/",wrapAsync(listingController.index));
 
 // app.get("/testListings",(req,res)=>{
 //     let sampleListings = new Listing({
@@ -34,25 +34,39 @@ router.get("/",wrapAsync(listingController.index));
 //     });
 //     res.send("test listing created");
 // }); 
+router
+    .route("/")
+    .get(wrapAsync(listingController.index))
+    .post(isLoggedIn, validateListing, wrapAsync(listingController.createListing));
+
 // New Route
 router.get("/new",isLoggedIn,listingController.renderNewForm);
 
-//Show Route
-router.get("/:id",wrapAsync(listingController.showListing));
+router
+    .route("/:id")
+    .get(wrapAsync(listingController.showListing))
+    .put(isLoggedIn, isOwner, express.urlencoded({ extended: true }), validateListing, wrapAsync(listingController.updateListing))
+    .patch(isLoggedIn, isOwner, express.urlencoded({ extended: true }), validateListing, wrapAsync(listingController.updateListing))
+    .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
-//Create Route
-router.post("/", isLoggedIn, wrapAsync(listingController.createListing));
+
+
+// //Show Route
+// router.get("/:id",wrapAsync(listingController.showListing));
+
+// //Create Route
+// router.post("/", isLoggedIn, wrapAsync(listingController.createListing));
 
 //Edit Route
 router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(listingController.renderEditForm));
 
-//Update Route
-router.put("/:id",isLoggedIn,isOwner,express.urlencoded({extended:true}),wrapAsync(listingController.updateListing));
+// //Update Route
+// router.put("/:id",isLoggedIn,isOwner,express.urlencoded({extended:true}),wrapAsync(listingController.updateListing));
 
-// Accept PATCH as well (some templates submit with ?_method=PATCH)
-router.patch("/:id",isLoggedIn,isOwner,express.urlencoded({extended:true}),wrapAsync(listingController.updateListing));
+// // Accept PATCH as well (some templates submit with ?_method=PATCH)
+// router.patch("/:id",isLoggedIn,isOwner,express.urlencoded({extended:true}),wrapAsync(listingController.updateListing));
 
-//Delete Route
-router.delete("/:id",isLoggedIn,isOwner,wrapAsync(listingController.deleteListing));
+ //Delete Route
+// router.delete("/:id",isLoggedIn,isOwner,wrapAsync(listingController.deleteListing));
 
 module.exports = router;
